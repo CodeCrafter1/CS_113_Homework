@@ -37,5 +37,21 @@ class JUnitDemo {
 		
 	//	fail("Not yet implemented");
 	}
+	
+	@Test
+	void testRemove() {
+		System.out.println("Running testRemove() on DirectoryEntry.");
+		String delName = "BB";		
+		//DirectoryEntry dE_holder();
+		
+		//dE_holder = theDirectory.get(1);
+			
+				
+		//directory.removeEntry(delName);					
+		assertEquals(directory.removeEntry(delName),null);  
+		//If found & deleted returns a null
+		//If not returns a DirectoryEntry type...which Junit did not like...???  
+		
+	}
 
 }
