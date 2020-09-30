@@ -44,24 +44,26 @@ public class Directory {
 		private int find(String name) {
 			int index = 0;
 			for (DirectoryEntry d : theDirectory) {
-				if(d.getName().equals(name))
+				if(d.getName().equals(name))					
 					return index;
 				index++;
 			}
-			return -1;
+			return -1; 
 		}
 	/** Remove an entry.
 	@param aName The name of the person being removed
 	@return The entry removed, or null if there is no entry for aName
 	*/
 
-		public DirectoryEntry removeEntry(String aName) {
+		public DirectoryEntry removeEntry(String aName) {////Why is the returning a OBJ of what you deleted!!
 			DirectoryEntry dE;
 			int index = find(aName);
 			if(index != -1) {
 				dE = theDirectory.get(index);
 				theDirectory.remove(theDirectory.remove(index));
-				return dE;
+				System.out.println("This is what is being returned: " + dE.getName());
+				return dE;  //I pass in a string and get back an object from a Arraylist I can't look up...
+				//It should just return 1 so Junit can compare easy.
 			}else
 				return null;
 		}

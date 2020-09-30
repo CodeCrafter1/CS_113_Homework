@@ -41,16 +41,20 @@ class JUnitDemo {
 	@Test
 	void testRemove() {
 		System.out.println("Running testRemove() on DirectoryEntry.");
-		String delName = "BB";		
-		//DirectoryEntry dE_holder();
+		//DirectoryEntry dE_removeEntry_return;
+		DirectoryEntry dE_Mike = new DirectoryEntry("Mike", "000-000-1502");		
+		System.out.println("This is the Mike dE Obj: " + dE_Mike);
 		
-		//dE_holder = theDirectory.get(1);
-			
-				
-		//directory.removeEntry(delName);					
-		assertEquals(directory.removeEntry(delName),null);  
-		//If found & deleted returns a null
-		//If not returns a DirectoryEntry type...which Junit did not like...???  
+		directory.addOrChangeEntry("Mike","000-000-1502");		
+		System.out.println("addOrChangeEntry method has been executed!!");	
+		
+		
+		
+		
+		//assertEquals(directory.removeEntry("Mike").getName(),"Mike");		
+		assertEquals(directory.removeEntry("Mike").getNumber(),"000-000-1502");
+		
+
 		
 	}
 

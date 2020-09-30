@@ -240,6 +240,39 @@ public class SingleLinkedList<E> {
 
 
 		public static void exercise() {
+			Node<String> tom = new Node<String>("Tom",null);
+			Node<String> dick = new Node<String>("Dick",null);
+			Node<String> harry = new Node<String>("Harry",null);
+			Node<String> sam = new Node<String>("Sam",null);
+			
+			Node head = tom;
+			tom.next = dick;
+			dick.next = harry;
+			harry.next = sam;
+			
+			Node<String> bill = new Node<String>("Bill",tom);
+			head = bill;			
+			
+			
+			Node<String> sue = new Node<String>("Sue",sam);
+			harry.next = sue;
+			//removed bill
+			head = head.next;
+			
+			sue.next = sue.next.next;
+			
+			
+			
+			
+			
+			
+			
+			
+	
+				
+			
+			
+			
 
 		}
 }
