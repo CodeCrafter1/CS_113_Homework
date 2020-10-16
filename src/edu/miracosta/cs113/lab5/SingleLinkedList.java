@@ -259,19 +259,10 @@ public class SingleLinkedList<E> {
 			//removed bill
 			head = head.next;
 			
-			sue.next = sue.next.next;
+			sue.next = sue.next.next;	
 			
 			
-			
-			
-			
-			
-			
-			
-	
-				
-			
-			
+
 			
 
 		}

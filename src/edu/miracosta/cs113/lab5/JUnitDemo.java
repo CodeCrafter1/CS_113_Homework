@@ -55,7 +55,7 @@ class JUnitDemo {
         assert (1 == testInstance.size());
         assert ("[tom]".equals(testInstance.toString()));
     }
-
+ 
 
 	/** Test to see that add method inserts three items */
 	@Test
@@ -80,6 +80,13 @@ class JUnitDemo {
         assert ("harry".equals(testInstance.get(2)));
     }
 
+
+    /** Test the get method on a list of three items */
+	@Test
+	public void test6() {
+        SingleLinkedList<String> testInstance = new SingleLinkedList<String>();
+        testInstance.exercise();	
+    }
  
 
 }
