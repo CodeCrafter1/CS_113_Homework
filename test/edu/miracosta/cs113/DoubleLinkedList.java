@@ -13,7 +13,7 @@ public class DoubleLinkedList<E> extends AbstractSequentialList<E>
   public void addFirst(E obj) { // Fill Here 
 	  
   }
-  public void addLast(E obj) { // Fill Here
+  public void addLast(E obj) { // Fill Herell
   }
 
   public E get(int index) 
