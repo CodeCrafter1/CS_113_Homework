@@ -3,6 +3,8 @@ package edu.miracosta.cs113;
 import org.junit.Before;
 import org.junit.Test;
 
+import edu.miracosta.cs113.stack_queue.StackInterface;
+
 import java.util.EmptyStackException;
 
 import static org.junit.Assert.assertTrue;

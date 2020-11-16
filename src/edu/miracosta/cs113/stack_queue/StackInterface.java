@@ -1,4 +1,4 @@
-package edu.miracosta.cs113;
+package edu.miracosta.cs113.stack_queue;
 
 public interface StackInterface<E> {
 
