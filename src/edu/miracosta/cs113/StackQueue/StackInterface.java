@@ -1,5 +1,6 @@
 package edu.miracosta.cs113.StackQueue;
 
+
 public interface StackInterface<E> {
 
     /**
