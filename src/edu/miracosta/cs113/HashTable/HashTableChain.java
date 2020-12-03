@@ -1,4 +1,4 @@
-package HashTable;
+package edu.miracosta.cs113.HashTable;
 
 import java.util.*;
 

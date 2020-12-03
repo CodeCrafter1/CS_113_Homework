@@ -1,4 +1,4 @@
-package HashTable;
+package edu.miracosta.cs113.HashTable;
 
 public interface KWHashMap<K, V> {
 
