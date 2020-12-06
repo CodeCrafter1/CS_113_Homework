@@ -10,14 +10,6 @@ import static org.junit.Assert.fail;
 
 import java.util.Scanner;
 
-/**
- * BinaryTreeTest : Tester class for generic BinaryTree class implementation
- * which employs a pre-order traversal through a given instance of this
- * structure's elements to illustrate its data.
- *
- * @author King
- * @version 2.0
- */
 public class BinaryTreeTest {
 
     // region data

@@ -12,12 +12,7 @@ import java.util.EmptyStackException;
 import java.util.NoSuchElementException;
 import java.util.Queue;
 
-/**
- * CircularArrayQueueTest : a test class for a Queue interface implementation which models a circular array.
- *
- * @author King
- * @version 2.0
- */
+ 
 public class CircularArrayQueueTest {
 
     /** Values to be added to the queue. */

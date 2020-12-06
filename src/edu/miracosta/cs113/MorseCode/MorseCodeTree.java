@@ -1,12 +1,7 @@
 package edu.miracosta.cs113.MorseCode;
 import java.lang.Object;
 
-/**
- * MorseCodeTree : A BinaryTree, with Nodes of type Character to represent each letter of the English alphabet,
- * and a means of traversal to be used to decipher Morse code.
- *
- * @version 1.0
- */
+
 public class MorseCodeTree extends BinaryTree<Character> {
 
     // TODO:

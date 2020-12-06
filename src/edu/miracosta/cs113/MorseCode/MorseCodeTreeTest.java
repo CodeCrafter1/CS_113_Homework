@@ -6,13 +6,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-/**
- * MorseCodeTreeTest : Tester class for MorseCodeTree, specifically for its
- * translateFromMorseCode method and related exceptional input cases.
- *
- * @author King
- * @version 1.0
- */
+
 public class MorseCodeTreeTest {
 
     /**
