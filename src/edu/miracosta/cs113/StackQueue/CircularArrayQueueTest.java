@@ -12,16 +12,28 @@ import java.util.EmptyStackException;
 import java.util.NoSuchElementException;
 import java.util.Queue;
 
- 
+/**
+ * CircularArrayQueueTest : a test class for a Queue interface implementation
+ * which models a circular array.
+ *
+ * @author King
+ * @version 2.0
+ */
 public class CircularArrayQueueTest {
 
-    /** Values to be added to the queue. */
-    private static final String[] STRING_VALUES = { "Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven" };
+    /**
+     * Values to be added to the queue.
+     */
+    private static final String[] STRING_VALUES = {"Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven"};
 
-    /** The initial capacity of the queue. */
+    /**
+     * The initial capacity of the queue.
+     */
     private static final int INITIAL_CAPACITY = 5;
 
-    /** Object derived from the Queue abstract class. */
+    /**
+     * Object derived from the Queue abstract class.
+     */
     private Queue<String> circularQueue;
 
     /**
@@ -33,20 +45,19 @@ public class CircularArrayQueueTest {
     @SuppressWarnings("ManualArrayToCollectionCopy")
     private void populateQueue(int numElements, boolean isOffer) {
         if (isOffer) {
-            for (int i = 0; i < numElements; i ++) {
+            for (int i = 0; i < numElements; i++) {
                 circularQueue.offer(STRING_VALUES[i]);
             }
-        }
-        else {
-            for (int i = 0; i < numElements; i ++) {
+        } else {
+            for (int i = 0; i < numElements; i++) {
                 circularQueue.add(STRING_VALUES[i]);
             }
         }
     }
 
     /**
-     * Creates a circular queue with a given initial capacity. This function is executed every single time before
-     * each test run.
+     * Creates a circular queue with a given initial capacity. This function is
+     * executed every single time before each test run.
      */
     @Before
     public void setup() {
@@ -55,7 +66,6 @@ public class CircularArrayQueueTest {
     }
 
     // region peek and element tests
-
     @Test
     public void testPeekEmpty() {
         assertEquals("Test peek failed - Call from an empty queue should return null.", null, circularQueue.peek());
@@ -66,12 +76,12 @@ public class CircularArrayQueueTest {
         try {
             circularQueue.element();
             fail("Test element failed - Call from an empty queue should throw a NoSuchElementException.");
-        } catch (NoSuchElementException nse) { /* Test Success */ }
+        } catch (NoSuchElementException nse) {
+            /* Test Success */ }
     }
 
     // endregion peek and element tests
     // region offer tests
-
     @Test
     public void testOfferOne() {
         populateQueue(1, true);
@@ -103,7 +113,6 @@ public class CircularArrayQueueTest {
 
     // endregion offer tests
     // region add tests
-
     @Test
     public void testAddOne() {
         populateQueue(1, false);
@@ -135,7 +144,6 @@ public class CircularArrayQueueTest {
 
     // endregion add tests
     // region poll tests
-
     @Test
     public void testPollEmpty() {
         // Attempt to poll from an empty queue
@@ -159,7 +167,7 @@ public class CircularArrayQueueTest {
         populateQueue(INITIAL_CAPACITY, true);
 
         // Poll each element from queue
-        for (int i = 0; i < INITIAL_CAPACITY; i ++) {
+        for (int i = 0; i < INITIAL_CAPACITY; i++) {
             assertEquals("Test poll failed - Call should return the head of the queue.", STRING_VALUES[i], circularQueue.poll());
         }
     }
@@ -175,7 +183,7 @@ public class CircularArrayQueueTest {
         circularQueue.add(STRING_VALUES[INITIAL_CAPACITY + 2]);
 
         // Poll each element from queue
-        for (int i = 0; i < (INITIAL_CAPACITY + 3); i ++) {
+        for (int i = 0; i < (INITIAL_CAPACITY + 3); i++) {
             assertEquals("Test poll failed - Call should return the head of the queue.", STRING_VALUES[i], circularQueue.poll());
         }
 
@@ -185,14 +193,14 @@ public class CircularArrayQueueTest {
 
     // endregion poll tests
     // region remove tests
-
     @Test
     public void testRemoveEmpty() {
         // Attempt remove on an empty queue
         try {
             circularQueue.remove();
             fail("Test remove failed - Call from an empty queue should throw NoSuchElementException.");
-        } catch (NoSuchElementException nsee) { /* Test Success */ }
+        } catch (NoSuchElementException nsee) {
+            /* Test Success */ }
     }
 
     @Test
@@ -212,7 +220,7 @@ public class CircularArrayQueueTest {
         populateQueue(INITIAL_CAPACITY, true);
 
         // Remove each element from the queue
-        for (int i = 0; i < INITIAL_CAPACITY; i ++) {
+        for (int i = 0; i < INITIAL_CAPACITY; i++) {
             assertEquals("Test remove failed - Call should return the head of the queue.", STRING_VALUES[i], circularQueue.remove());
         }
     }
@@ -228,7 +236,7 @@ public class CircularArrayQueueTest {
         circularQueue.offer(STRING_VALUES[INITIAL_CAPACITY + 2]);
 
         // Remove each element from the queue
-        for (int i = 0; i < (INITIAL_CAPACITY + 3); i ++) {
+        for (int i = 0; i < (INITIAL_CAPACITY + 3); i++) {
             assertEquals("Test remove failed - Call should return the head of the queue.", STRING_VALUES[i], circularQueue.remove());
         }
 
@@ -236,9 +244,9 @@ public class CircularArrayQueueTest {
         try {
             circularQueue.remove();
             fail("Test remove failed - Call from an empty queue should throw NoSuchElementException.");
-        } catch (NoSuchElementException nsee) { /* Test Success */ }
+        } catch (NoSuchElementException nsee) {
+            /* Test Success */ }
     }
 
     // endregion remove tests
-
 } // End of class CircularArrayQueueTest
