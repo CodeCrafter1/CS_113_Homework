@@ -1,6 +1,6 @@
 package edu.miracosta.cs113.MorseCode;
 
-import java.lang.Object;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -18,43 +18,14 @@ public class MorseCodeTree extends BinaryTree<Character> {
     private BinaryTree<Character> tree;
 
     public MorseCodeTree() {
-        tree = new BinaryTree('1', null, null);
+        tree = new BinaryTree(' ', null, null);
+        readFile(tree);
     }
 
     public static void main(String[] args) {
         MorseCodeTree m = new MorseCodeTree();
-        m.readFile(m.tree);
         System.out.println(m.tree.toString());
-        System.out.println(m.translateFromMorseCode("--**"));
-        /*
-        e *
-t -
-i **
-a *-
-n -*
-m --
-s ***
-u **-
-r *-*
-w *--
-d -**
-k -*-
-g --*
-o ---
-h ****
-v ***-
-f **-*
-l *-**
-p *--*
-j *---
-b -***
-x -**-
-c -*-*
-y -*--
-z --**
-q --*-
-         */
-
+        System.out.println(m.translateFromMorseCode("*** **- *-* *-- -** -*- --* ---"));
     }
 
     public void readFile(BinaryTree<Character> tree) {
@@ -63,21 +34,19 @@ q --*-
             String line = "";
             while ((line = readIn.readLine()) != null) {
                 top = tree.root;
-                String[] temp = line.split("\\s");
+                String[] temp = line.split(" ");
                 char c = temp[0].charAt(0);
                 String code = temp[1];
                 for (int i = 0; i < code.length(); i++) {
                     if (code.charAt(i) == '*') {
                         if (top.left == null) {
                             top.left = new Node<>(c);
-
                         } else {
                             top = top.left;
                         }
                     } else {
                         if (top.right == null) {
                             top.right = new Node<>(c);
-
                         } else {
                             top = top.right;
                         }
@@ -115,33 +84,29 @@ q --*-
         if (morseCode == null) {
             throw new IllegalArgumentException();
         }
-        if (morseCode.length() > 26) {
-            throw new IndexOutOfBoundsException();
-        }
         Node<Character> top = null;
-        String[] words = morseCode.split("\\s");//split into words separated by spaces
+        String[] words = morseCode.split(" ");//split into words separated by spaces
         String result = "";
+        boolean ok = false;
         for (String word : words) {//loop over all of the words
             top = tree.root;
+            ok = false;
             for (int j = 0; j < word.length(); j++) {//loop over each char in temp[i]
                 if (word.charAt(j) == '*') {
-                    if (top.left != null) {
-                        top = top.left;
-                    } else {
-                        throw new IllegalArgumentException();
-                    }
+                    ok = true;
+                    top = top.left;
                 } else if (word.charAt(j) == '-') {
-                    if (top.right != null) {
-                        top = top.right;
-                    } else {
-                        throw new IllegalArgumentException();
-                    }
-                } //else {
-                //throw new IllegalArgumentException();
-                //}
+                    ok = true;
+                    top = top.right;
+                } else {
+                    throw new IllegalArgumentException();
+                }
             }
-            result += top.getData();
+            if (ok) {
+                result += top.getData();
+            }
         }
+
         return result;
     }
 
