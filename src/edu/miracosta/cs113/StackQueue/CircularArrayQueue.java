@@ -48,16 +48,16 @@ public class CircularArrayQueue<E> extends AbstractQueue<E> implements Queue<E> 
      */
     private class Iter implements Iterator<E> {
 
-        private int index;
-        private int count = 0;
+        private int i;
+        private int num = 0;
 
         public Iter() {
-            index = front;
+            i = front;
         }
 
         @Override
         public boolean hasNext() {
-            return count < size;
+            return num < size;
         }
 
         @Override
@@ -65,9 +65,9 @@ public class CircularArrayQueue<E> extends AbstractQueue<E> implements Queue<E> 
             if (!hasNext()) {
                 throw new NoSuchElementException();
             }
-            E returnValue = theData[index];
-            index = (index + 1) % capacity;
-            count++;
+            E returnValue = theData[i];
+            i = (i + 1) % capacity;
+            num++;
             return returnValue;
         }
 
