@@ -135,7 +135,7 @@ public class HashTableChain<K, V> implements Map<K, V> {
         }
     }
 
-    public HashTableChain() {
+    public HashTableChain() { //default constructor
         table = new LinkedList[CAPACITY];
     }
 
@@ -144,14 +144,14 @@ public class HashTableChain<K, V> implements Map<K, V> {
     }
 
     public boolean isEmpty() {
-        return numKeys == 0;
+        return numKeys == 0;  //Number of keys in all lists
     }
 
     public V remove(Object key) {
         if (key == null) {
             return null;
         }
-        int index = key.hashCode() % table.length;
+        int index = key.hashCode() % table.length;  //Calculate the index of the table where the key is located
         if (index < 0) {
             index += table.length;
         }
@@ -160,10 +160,10 @@ public class HashTableChain<K, V> implements Map<K, V> {
         }
         Entry<K, V> e = null, f = null;
         //Search the list at table[index] to find the key.
-        for (int j = 0; j < table[index].size(); j++) {
+        for (int j = 0; j < table[index].size(); j++) {  //Go through the list at this index to find a match
             e = table[index].get(j);
             if (e != null) {
-                if (e.key.equals(key)) {
+                if (e.key.equals(key)) {              //Check key of the input with key of list and removes it if its there.
                     f = table[index].remove(j);
                     numKeys--;
                     break;
@@ -192,7 +192,7 @@ public class HashTableChain<K, V> implements Map<K, V> {
      */
     //@Override
     public V get(Object key) {
-        int index = key.hashCode() % table.length;
+        int index = key.hashCode() % table.length; //Look for Obj and return the value asso  with key
         if (index < 0) {
             index += table.length;
         }
@@ -200,7 +200,7 @@ public class HashTableChain<K, V> implements Map<K, V> {
             return null; //key is not in the table
         }
         //Search the list at table[index] to find the key.
-        for (Entry<K, V> nextItem : table[index]) {
+        for (Entry<K, V> nextItem : table[index]) {      //For loop for above
             if (nextItem.key.equals(key)) {
                 return nextItem.value;
             }
@@ -232,7 +232,7 @@ public class HashTableChain<K, V> implements Map<K, V> {
         //assert: key is not in the table, add new item.
         table[index].addFirst(new Entry<K, V>(key, value));
         numKeys++;
-        if (numKeys > (LOAD_THRESHOLD * table.length)) {
+        if (numKeys > (LOAD_THRESHOLD * table.length)) {  //Doubles size to of the table if true when we "put"
             rehash();
         }
         return null;
@@ -346,7 +346,7 @@ public class HashTableChain<K, V> implements Map<K, V> {
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode() {  //Hash code for the table
         int result = 1;
         for (int i = 0; i < table.length; i++) {
             if (table[i] != null) {
@@ -362,12 +362,12 @@ public class HashTableChain<K, V> implements Map<K, V> {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(Object obj) {  //Checks every entry
         if (obj == this) {
             return true;
         }
         try {
-            Map<K, V> objct = (Map<K, V>) obj;
+            Map<K, V> objct = (Map<K, V>) obj;  //Difficult**************
             for (int i = 0; i < table.length; i++) {
                 if (table[i] != null) {
                     for (int j = 0; j < table[i].size(); j++) {
