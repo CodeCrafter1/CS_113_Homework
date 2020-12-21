@@ -22,7 +22,7 @@ public class MorseCodeTree extends BinaryTree<Character> {
         readFile(tree);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) { //Main to test code
         MorseCodeTree m = new MorseCodeTree();
         System.out.println(m.tree.toString());
         System.out.println(m.translateFromMorseCode("*** **- *-* *-- -** -*- --* ---"));
@@ -34,18 +34,18 @@ public class MorseCodeTree extends BinaryTree<Character> {
             String line = "";
             while ((line = readIn.readLine()) != null) {
                 top = tree.root;
-                String[] temp = line.split(" ");
-                char c = temp[0].charAt(0);
-                String code = temp[1];
+                String[] temp = line.split(" ");  //Split on space
+                char c = temp[0].charAt(0);       //Load temp arrary
+                String code = temp[1];            
                 for (int i = 0; i < code.length(); i++) {
-                    if (code.charAt(i) == '*') {
-                        if (top.left == null) {
-                            top.left = new Node<>(c);
+                    if (code.charAt(i) == '*') { 
+                        if (top.left == null) {        //Look for leaf
+                            top.left = new Node<>(c);  //If null add letter to tree
                         } else {
-                            top = top.left;
+                            top = top.left;           //Move to the left of the tree
                         }
                     } else {
-                        if (top.right == null) {
+                        if (top.right == null) {    //Same thing going right
                             top.right = new Node<>(c);
                         } else {
                             top = top.right;
@@ -91,15 +91,15 @@ public class MorseCodeTree extends BinaryTree<Character> {
         for (String word : words) {//loop over all of the words
             top = tree.root;
             ok = false;
-            for (int j = 0; j < word.length(); j++) {//loop over each char in temp[i]
-                if (word.charAt(j) == '*') {
+            for (int j = 0; j < word.length(); j++) {//loop over each char in temp[i]  Search through the tree until you find the letter
+                if (word.charAt(j) == '*') {  //If star you left
                     ok = true;
                     top = top.left;
                 } else if (word.charAt(j) == '-') {
                     ok = true;
                     top = top.right;
                 } else {
-                    throw new IllegalArgumentException();
+                    throw new IllegalArgumentException();  //if neither then throw an exception
                 }
             }
             if (ok) {

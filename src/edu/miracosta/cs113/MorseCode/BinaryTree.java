@@ -3,10 +3,7 @@ package edu.miracosta.cs113.MorseCode;
 import java.io.*;
 import java.util.*;
 
-/**
- *
- * @author
- */
+
 public class BinaryTree<E> implements Serializable {
 
     protected static class Node<E> implements Serializable {
