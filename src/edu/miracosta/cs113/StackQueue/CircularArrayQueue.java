@@ -8,7 +8,7 @@ public class CircularArrayQueue<E> extends AbstractQueue<E> implements Queue<E> 
     private int front;
     private int rear;
     private int size;
-    private int capacity;
+    private int capacity; //Size of if queue
     private static final int DEFAULT_CAPACITY = 10;
     private E[] theData;
 
@@ -66,7 +66,7 @@ public class CircularArrayQueue<E> extends AbstractQueue<E> implements Queue<E> 
                 throw new NoSuchElementException();
             }
             E returnValue = theData[i];
-            i = (i + 1) % capacity;
+            i = (i + 1) % capacity; 
             num++;
             return returnValue;
         }
