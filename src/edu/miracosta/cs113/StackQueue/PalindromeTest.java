@@ -63,12 +63,13 @@ public class PalindromeTest {
         }
         // Implement this method body using your ArrayListStack. Be mindful of your algorithm!
         boolean isPal = true;
-        String newString1 = s.toLowerCase().trim();
+        String newString1 = s.toLowerCase().trim(); //Test if lower case trim off any spaces
         String newString2 = "";
 
         System.out.println("original " + s);
         System.out.println("lower trimmed " + newString1);
 
+        //Removes any white spaces 
         for (int i = 0; i < newString1.length(); i++) {
             if (Character.isWhitespace(newString1.charAt(i))) {
                 continue;
@@ -76,22 +77,22 @@ public class PalindromeTest {
                 newString2 += Character.toString(newString1.charAt(i));
             }
         }
-        System.out.println("final " + newString2);
+        System.out.println("final " + newString2);  //Print the final string after we have cleaned it up
 
-        ArrayListStack<Character> one;
+        ArrayListStack<Character> one;  //Puts the string into an array list stack
         one = new ArrayListStack<>();
 
         for (int i = 0; i < newString2.length(); i++) {
-            one.push(newString2.charAt(i));
+            one.push(newString2.charAt(i));           //pushing each char into array list "one"
         }
 
         ArrayListStack<Character> two;
         two = new ArrayListStack<>();
 
-        int len = newString2.length();
+        int len = newString2.length();  //put half on to array list "two"
         if (len % 2 == 0) {
             for (int i = 0; i < (len / 2); i++) {
-                two.push(one.pop());
+                two.push(one.pop());    
             }
         } else {
             for (int i = 0; i <= (len / 2); i++) {
@@ -103,7 +104,7 @@ public class PalindromeTest {
             }
         }
 
-        for (int i = 0; i < (len / 2); i++) {
+        for (int i = 0; i < (len / 2); i++) {  //This compares each of the slices
             if (!(one.pop().equals(two.pop()))) {
                 isPal = false;
                 break;
