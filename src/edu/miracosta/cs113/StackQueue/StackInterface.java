@@ -1,4 +1,4 @@
-package edu.miracosta.cs113.StackQueue;
+package edu.miracosta.cs113.StackQueue;  //List of the functions you have to implement
 
 
 public interface StackInterface<E> {
