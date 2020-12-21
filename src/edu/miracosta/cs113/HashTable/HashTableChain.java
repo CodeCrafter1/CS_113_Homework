@@ -2,12 +2,16 @@ package edu.miracosta.cs113.HashTable;
 
 import java.util.*;
 
-public class HashTableChain<K, V> implements KWHashMap<K, V> {
+/**
+ *
+ * @author
+ */
+public class HashTableChain<K, V> implements Map<K, V> {
 
-    private LinkedList<Entry<K, V>>[] table;
+    private LinkedList<Entry<K, V>>[] table; //Make an array of lists with Key values
     private int numKeys;
     private static final int CAPACITY = 101;
-    private static final double LOAD_THRESHOLD = 3.0;
+    private static final double LOAD_THRESHOLD = 3.0;  //Check how many number of keys we have
 
     private static class Entry<K, V> implements Map.Entry<K, V> {
 
@@ -20,7 +24,7 @@ public class HashTableChain<K, V> implements KWHashMap<K, V> {
          * @param key The key
          * @param value The value
          */
-        public Entry(K key, V value) {
+        public Entry(K key, V value) {  //constructor one entry in a list ..in an array of lists
             this.key = key;
             this.value = value;
         }
@@ -54,47 +58,80 @@ public class HashTableChain<K, V> implements KWHashMap<K, V> {
             value = val;
             return oldVal;
         }
-    }
 
-    private class EntrySet extends AbstractSet<Map.Entry<K, V>> {
-
-        public EntrySet() {
-
+        @Override
+        public String toString() {
+            return key.toString() + "=" + value.toString();
         }
 
+    }
+
+    public Set<Map.Entry<K, V>> entrySet() {  
+        return new EntrySet();
+    }
+
+    private class EntrySet extends AbstractSet<Map.Entry<K, V>> { //Make a set of KVs
+
+        /**
+         * Return the size of the set.
+         */
         @Override
         public int size() {
             return numKeys;
         }
 
+        /**
+         * Return an iterator over the set.
+         */
         @Override
         public Iterator<Map.Entry<K, V>> iterator() {
-            return new SetIterator();
+        	Iterator<Map.Entry<K, V>> i = new HashTableChain.SetIterator(); //Use to go through the set of data access directly
+            return i;
         }
+        
     }
 
     private class SetIterator implements Iterator<Map.Entry<K, V>> {
 
-        private Map.Entry<K, V> nextItem;//current item
-        private Map.Entry<K, V> lastItemReturned;
-        private int index;
+        int i = 0;
+        Iterator<Entry<K, V>> lIterator = null;
 
-        public SetIterator() {
-            index = 0;
-            lastItemReturned = null;
-
+        @Override
+        public boolean hasNext() {  //Is the next item a null
+            if (lIterator != null) {
+                if (lIterator.hasNext()) {
+                    return true;
+                } else {
+                    lIterator = null;
+                    i++;
+                }
+            }
+            while (i < table.length
+                    && table[i] == null) {
+                i++;
+            }
+            if (i == table.length) {
+                return false;
+            }
+            lIterator = table[i].iterator();  //Keeping track of where we are on the table
+            return lIterator.hasNext();      //Returns whether or not we have a next item
         }
 
-        public void next() {
-
+        @Override
+        public Map.Entry<K, V> next() {
+            if (!hasNext()) {
+                throw new java.util.NoSuchElementException();
+            }
+            return lIterator.next();
         }
 
-        public void hasNext() {
-
-        }
-
+        @Override
         public void remove() {
-
+            lIterator.remove();
+            if (table[i].size() == 0) {
+                table[i] = null;
+            }
+            numKeys--;
         }
     }
 
@@ -103,15 +140,18 @@ public class HashTableChain<K, V> implements KWHashMap<K, V> {
     }
 
     public int size() {
-        return table.length;
+        return numKeys;
     }
 
     public boolean isEmpty() {
         return numKeys == 0;
     }
 
-    public V remove(Object obj) {
-        int index = obj.hashCode() % table.length;
+    public V remove(Object key) {
+        if (key == null) {
+            return null;
+        }
+        int index = key.hashCode() % table.length;
         if (index < 0) {
             index += table.length;
         }
@@ -122,11 +162,19 @@ public class HashTableChain<K, V> implements KWHashMap<K, V> {
         //Search the list at table[index] to find the key.
         for (int j = 0; j < table[index].size(); j++) {
             e = table[index].get(j);
-            if (e.equals(obj)) {
-                f = table[index].remove(j);
-                break;
+            if (e != null) {
+                if (e.key.equals(key)) {
+                    f = table[index].remove(j);
+                    numKeys--;
+                    break;
+                }
             }
         }
+
+        if (f == null) {
+            return null;
+        }
+
         return f.value;
     }
 
@@ -134,7 +182,6 @@ public class HashTableChain<K, V> implements KWHashMap<K, V> {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        HashTableChain h = new HashTableChain<String, Integer>();
     }
 
     /**
@@ -191,7 +238,94 @@ public class HashTableChain<K, V> implements KWHashMap<K, V> {
         return null;
     }
 
+    // returns boolean if table has the searched for key
+    @Override
+    public boolean containsKey(Object key) {
+        for (int i = 0; i < table.length; i++) {
+            if (table[i] != null) {
+                for (int j = 0; j < table[i].size(); j++) {
+                    Entry<K, V> e = table[i].get(j);
+                    if (e != null) {
+                        if (e.key.equals(key)) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    // returns boolean if table has the searched for value
+    @Override
+    public boolean containsValue(Object value) {
+        for (int i = 0; i < table.length; i++) {
+            if (table[i] != null) {
+                for (int j = 0; j < table[i].size(); j++) {
+                    Entry<K, V> e = table[i].get(j);
+                    if (e != null) {
+                        if (e.value.equals(value)) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    // throws UnsupportedOperationException
+    @Override
+    public void putAll(Map<? extends K, ? extends V> m) {
+        throw new UnsupportedOperationException();
+    }
+
+    // empties the table
+    @Override
+    public void clear() {
+        if (table == null) {
+            return;
+        }
+        for (int i = 0; i < table.length; i++) {
+            if (table[i] != null) {
+                if (table[i].size() > 0) {
+                    for (int j = 0; j < table[i].size(); j++) {
+                        table[i].removeFirst();
+                        numKeys--;
+                    }
+                }
+                if (table[i].size() == 0) {
+                    table[i] = null;
+                }
+            }
+        }
+        numKeys = 0;
+    }
+
+    // returns a view of the keys in set view
+    @Override
+    public Set<K> keySet() {
+        Set<K> coll = new HashSet<K>();
+        for (int i = 0; i < table.length; i++) {
+            if (table[i] != null) {
+                for (int j = 0; j < table[i].size(); j++) {
+                    Entry<K, V> e = table[i].get(j);
+                    if (e != null) {
+                        coll.add(e.key);
+                    }
+                }
+            }
+        }
+        return coll;
+    }
+
+    // throws UnsupportedOperationException
+    @Override
+    public Collection<V> values() {
+        throw new UnsupportedOperationException();
+    }
     //
+
     private void rehash() {
         //Save a reference to old Table.
         LinkedList<Entry<K, V>>[] oldTable = table;
@@ -211,4 +345,46 @@ public class HashTableChain<K, V> implements KWHashMap<K, V> {
         }
     }
 
+    @Override
+    public int hashCode() {
+        int result = 1;
+        for (int i = 0; i < table.length; i++) {
+            if (table[i] != null) {
+                for (int j = 0; j < table[i].size(); j++) {
+                    Entry<K, V> e = table[i].get(j);
+                    if (e != null) {
+                        result += e.key.hashCode();
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        try {
+            Map<K, V> objct = (Map<K, V>) obj;
+            for (int i = 0; i < table.length; i++) {
+                if (table[i] != null) {
+                    for (int j = 0; j < table[i].size(); j++) {
+                        Entry<K, V> e = table[i].get(j);
+                        if (e != null) {
+                            V val = objct.get(e.key);
+                            if (!e.value.equals(val)) {
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return true;
+    }
 }
